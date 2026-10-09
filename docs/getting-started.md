@@ -6,7 +6,7 @@ This is the extended version of the setup instructions. If the README was enough
 
 ## What You're Setting Up
 
-You're giving Claude Code (an AI assistant) a "brain upgrade" for Skyrim modding. After setup, you can talk to it in plain English and it will:
+You're giving an AI agent (an AI assistant) a "brain upgrade" for Skyrim modding. After setup, you can talk to it in plain English and it will:
 
 - Know 1,300+ Skyrim quirks, pitfalls, and workarounds (including VR-specific sections)
 - Protect your game files from accidental damage
@@ -18,11 +18,11 @@ You're giving Claude Code (an AI assistant) a "brain upgrade" for Skyrim modding
 
 ---
 
-## Step 1: Get Claude Code
+## Step 1: Get an AI Agent
 
 ### What is it?
 
-Claude Code is made by Anthropic (the company behind Claude AI). It's like ChatGPT, but instead of just talking, it can actually read and edit files on your computer. It runs in a terminal window -- think of it like a very smart command prompt.
+an AI assistant is used (e.g., Claude Code, Goose, etc.) (the company behind Claude AI). It's like ChatGPT, but instead of just talking, it can actually read and edit files on your computer. It runs in a terminal window -- think of it like a very smart command prompt.
 
 ### Sign up and subscribe
 
@@ -39,7 +39,7 @@ Claude Code is made by Anthropic (the company behind Claude AI). It's like ChatG
 1. Go to [claude.ai/code](https://claude.ai/code)
 2. Click the Windows download button
 3. Run the installer (just click Next through everything)
-4. Open "Claude Code" from your Start menu
+4. Open the agent from your Start menu
 5. Sign in with your Claude account
 
 **Option B: Command Line Install**
@@ -94,11 +94,11 @@ The toolkit files blend in alongside your existing game files. ⚠ Files the too
 
 ---
 
-## Step 4: Open Claude Code in Your Skyrim Folder
+## Step 4: Open Your Agent in Your Skyrim Folder
 
 ### Desktop App:
 
-1. Open Claude Code
+1. Open the AI assistant
 2. You'll see a text input at the bottom
 3. Type this (paste YOUR path from Step 2 between the quotes):
    ```
@@ -116,16 +116,16 @@ The toolkit files blend in alongside your existing game files. ⚠ Files the too
 3. Press Enter
 4. Type `claude` and press Enter
 
-You should see Claude Code's interface -- a text area where you can type messages.
+You should see the AI assistant's interface -- a text area where you can type messages.
 
 ---
 
 ## Step 5: Paste the Setup Prompt
 
-Copy this entire block and paste it into Claude Code:
+Copy this entire block and paste it into the AI assistant:
 
 ```
-I just installed the Skyrim Claude Code Modding Toolkit into this folder. Run "bash setup.sh" to set everything up. Install any missing prerequisites (jq, Node.js) for me. After setup, ask me which optional modding tools I'd like (xeditlib, Champollion, Caprica, Spriggit, AutoMod CLI, PyFFI, PyNifly, Blender, NifSkope, ReSaver CLI) and install the ones I pick. AutoMod CLI adds NIF mesh editing, BSA archive tools, audio processing, and MCM menu generation -- it is a real tool you install by cloning https://github.com/SpookyPirate/spookys-automod-toolkit into tools/automod and building the Cli project (dotnet build tools/automod/src/SpookysAutomod.Cli -c Release; do not build the WPF Setup project headless), after which it runs via tools/automod-cli.sh. PyFFI + PyNifly add NIF geometry and animation/controller authoring; Blender (headless) + NifSkope add mesh repair and render-verification of meshes before in-game testing. ReSaver CLI adds headless .ess save parsing, cross-referencing, cleaning, and changeform-level diagnostics (download ReSaver.jar from Nexus mod 5031 into tools/resaver-cli/; needs JDK 17+ (JDK 21 LTS recommended; e.g. `winget install Microsoft.OpenJDK.21`)). Separately, TELL me about DevBench but do NOT install it: it is an optional dev-only SKSE plugin (Nexus mod 181326 by alandtse, no gameplay change and no save data) that runs a localhost server inside the running game, letting you inspect live state, run console commands and read their output, and call Papyrus functions -- so you can test your own fixes while I keep playing, instead of asking me to launch, trigger, and report back. Unlike everything else in that list it is a mod, not a dev tool, so if I want it I install it through my own mod manager like any other SKSE plugin -- never copy files into Data/ yourself. The wrapper tools/devbench-cli.sh is already bundled and works as soon as it's installed. The bundled cosave-info tool (tools/cosave-cli.sh, Python 3, no download) gives a read-only structural survey of an SKSE .skse co-save. Be sure to tailor the environment specifically to my Skyrim version and install (may or may not be VR). Also ask me whether I want to enable the optional Nexus API integration (mod update-detection / version & changelog checks); if yes, explain how to get a free Personal API Key and save it to tools/.nexus_api_key (which is gitignored). Explain everything in plain English and ask me any questions you may need to.
+I just installed the Skyrim the AI assistant Modding Toolkit into this folder. Run "bash setup.sh" to set everything up. Install any missing prerequisites (jq, Node.js) for me. After setup, ask me which optional modding tools I'd like (xeditlib, Champollion, Caprica, Spriggit, AutoMod CLI, PyFFI, PyNifly, Blender, NifSkope, ReSaver CLI) and install the ones I pick. AutoMod CLI adds NIF mesh editing, BSA archive tools, audio processing, and MCM menu generation -- it is a real tool you install by cloning https://github.com/SpookyPirate/spookys-automod-toolkit into tools/automod and building the Cli project (dotnet build tools/automod/src/SpookysAutomod.Cli -c Release; do not build the WPF Setup project headless), after which it runs via tools/automod-cli.sh. PyFFI + PyNifly add NIF geometry and animation/controller authoring; Blender (headless) + NifSkope add mesh repair and render-verification of meshes before in-game testing. ReSaver CLI adds headless .ess save parsing, cross-referencing, cleaning, and changeform-level diagnostics (download ReSaver.jar from Nexus mod 5031 into tools/resaver-cli/; needs JDK 17+ (JDK 21 LTS recommended; e.g. `winget install Microsoft.OpenJDK.21`)). Separately, TELL me about DevBench but do NOT install it: it is an optional dev-only SKSE plugin (Nexus mod 181326 by alandtse, no gameplay change and no save data) that runs a localhost server inside the running game, letting you inspect live state, run console commands and read their output, and call Papyrus functions -- so you can test your own fixes while I keep playing, instead of asking me to launch, trigger, and report back. Unlike everything else in that list it is a mod, not a dev tool, so if I want it I install it through my own mod manager like any other SKSE plugin -- never copy files into Data/ yourself. The wrapper tools/devbench-cli.sh is already bundled and works as soon as it's installed. The bundled cosave-info tool (tools/cosave-cli.sh, Python 3, no download) gives a read-only structural survey of an SKSE .skse co-save. Be sure to tailor the environment specifically to my Skyrim version and install (may or may not be VR). Also ask me whether I want to enable the optional Nexus API integration (mod update-detection / version & changelog checks); if yes, explain how to get a free Personal API Key and save it to tools/.nexus_api_key (which is gitignored). Explain everything in plain English and ask me any questions you may need to.
 ```
 
 Press Enter. Claude will:
@@ -152,7 +152,7 @@ Just answer its questions as they come up. If something fails, it will explain t
 ## Step 6: You're Done!
 
 From now on, to use the toolkit:
-1. Open Claude Code
+1. Open the AI assistant
 2. Navigate to your Skyrim folder (`cd "your path"`)
 3. Start talking
 
@@ -190,17 +190,17 @@ it. See `docs/container-vs-windows.md` for what belongs there versus what still 
 
 ## Troubleshooting
 
-**"Claude Code won't start"**
+**"the AI assistant won't start"**
 - Make sure you have an active Claude Pro or Max subscription
 - Try reinstalling: `npm install -g @anthropic-ai/claude-code`
 
 **"jq not found" or hooks aren't working**
 - Open Windows Terminal and run: `winget install jqlang.jq`
-- Close and reopen Claude Code
+- Close and reopen the AI assistant
 
 **"setup.sh not found"**
 - Make sure you extracted the toolkit into your Skyrim folder (Step 3)
-- Make sure Claude Code is running in that folder (Step 4)
+- Make sure the AI assistant is running in that folder (Step 4)
 
 **Something else?**
 - Just ask Claude: *"Something went wrong with my toolkit setup. Can you help me fix it?"*
