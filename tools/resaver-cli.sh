@@ -38,10 +38,21 @@
 # and JDK 17+ (JDK 21 LTS recommended). The wrapper compiles its small driver on first run.
 set -uo pipefail
 
+# Platform-aware path and classpath separator handling.
+# MSYS/Git Bash provide `pwd -W` for a Windows-native path; everywhere else
+# `pwd` is correct. Java classpath separator is `;` on Windows, `:` on Linux.
+if command -v cygpath >/dev/null 2>&1; then
+  _SEP=';'
+elif [ -n "${MSYSTEM:-}" ] || [ -n "${WSL_DISTRO_NAME:-}" ]; then
+  _SEP=';'
+else
+  _SEP=':'
+fi
+
 HERE="$(cd "$(dirname "$0")" && pwd -W 2>/dev/null)"
 [ -z "$HERE" ] && HERE="$(cd "$(dirname "$0")" && pwd)"
 TOOL="$HERE/resaver-cli"
-CP="$TOOL/ReSaver.jar;$TOOL/lib/*"
+CP="$TOOL/ReSaver.jar${_SEP}$TOOL/lib/*"
 OVERLAY="$TOOL/analysis-overlay"   # read-only analysis overlay (modified ReSaver source; see analysis-overlay/NOTICE.md)
 
 if [ ! -f "$TOOL/ReSaver.jar" ]; then
@@ -90,10 +101,10 @@ case "$OP" in
     else
       OVERLAY_OK=0   # overlay not installed (older layout) — stock is fine
     fi
-    if [ "$OVERLAY_OK" = "1" ]; then RUNCP="$OVERLAY;$TOOL;$CP"; else RUNCP="$TOOL;$CP"; fi
+    if [ "$OVERLAY_OK" = "1" ]; then RUNCP="$OVERLAY${_SEP}$TOOL${_SEP}$CP"; else RUNCP="$TOOL${_SEP}$CP"; fi
     ;;
   *)
-    RUNCP="$TOOL;$CP"           # stock only — overlay structurally excluded from write ops
+    RUNCP="$TOOL${_SEP}$CP"     # stock only — overlay structurally excluded from write ops
     ;;
 esac
 

@@ -10,6 +10,12 @@ one left behind by an uninstall -- and they are structurally identical. Reading
 the wrong one does not fail. It produces a complete, plausible triage of a log
 nobody asked about, and a clean bill of health is exactly what it looks like.
 So when there is more than one candidate, say so, and say how to override it.
+
+Linux / Wine / Amethyst extensions:
+  - SKYRIM_DOCUMENTS  -> explicit override for the Documents folder
+  - SKYRIM_MY_GAMES   -> explicit override for Documents/My Games
+  - SKYRIM_WINE_PREFIX -> probe for a Wine prefix's drive_c/users/.../Documents
+  - Falls back to the native ~/Documents/My Games if nothing else is found.
 """
 
 from __future__ import annotations
@@ -23,8 +29,52 @@ from pathlib import Path
 GAME_FOLDERS = ("Skyrim VR", "Skyrim Special Edition", "Skyrim")
 
 
+def _resolve_wine_documents(prefix_path: Path) -> Path | None:
+    """Walk a Wine prefix to find the user's Documents folder."""
+    if not prefix_path.is_dir():
+        return None
+    drive_c = prefix_path / "drive_c"
+    users = drive_c / "users"
+    if not users.is_dir():
+        return None
+    for name in [os.environ.get("USER", ""), os.environ.get("USERNAME", ""), "steamuser"]:
+        if not name:
+            continue
+        docs = users / name / "Documents"
+        if docs.is_dir():
+            return docs
+    for user_dir in sorted(users.iterdir()):
+        if user_dir.is_dir():
+            docs = user_dir / "Documents"
+            if docs.is_dir():
+                return docs
+    return None
+
+
 def my_games() -> Path:
-    """<user profile>/Documents/My Games -- the root Bethesda writes under."""
+    """Return the Documents/My Games path this install writes under.
+
+    Resolution order:
+      1. SKYRIM_MY_GAMES environment variable
+      2. SKYRIM_DOCUMENTS/My Games
+      3. SKYRIM_WINE_PREFIX/drive_c/users/*/Documents/My Games
+      4. Native ~/Documents/My Games (Linux or Windows)
+    """
+    override = os.environ.get("SKYRIM_MY_GAMES")
+    if override:
+        return Path(override)
+
+    docs_override = os.environ.get("SKYRIM_DOCUMENTS")
+    if docs_override:
+        return Path(docs_override) / "My Games"
+
+    prefix = os.environ.get("SKYRIM_WINE_PREFIX")
+    if prefix:
+        wine_docs = _resolve_wine_documents(Path(prefix))
+        if wine_docs:
+            return wine_docs / "My Games"
+
+    # Native fallback: Windows USERPROFILE or Linux home
     profile = os.environ.get("USERPROFILE") or os.path.expanduser("~")
     return Path(profile) / "Documents" / "My Games"
 
