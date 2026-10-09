@@ -121,6 +121,26 @@ the game running.
 
 ---
 
+## Skills
+
+The `.claude/skills/` directory is Claude Code specific. Portable copies live in
+`docs/skills/` and work with any agent — including Goose.
+
+| Skill | File | Purpose |
+|-------|------|---------|
+| Inspect ESP | `docs/skills/inspect-esp/SKILL.md` | Serialize to YAML, analyze record structure |
+| Create Mod | `docs/skills/create-mod/SKILL.md` | Build ESP from scratch via Spriggit or AutoMod |
+| Port to VR | `docs/skills/port-to-vr/SKILL.md` | Check VR incompatibilities |
+| Audio | `docs/skills/skyrim-audio/SKILL.md` | FUZ/XWM/WAV pipeline, SNDR/SOUN records |
+| BSA | `docs/skills/skyrim-bsa/SKILL.md` | Archive CRUD |
+| Context | `docs/skills/skyrim-context/SKILL.md` | Session setup, path verification |
+| MCM | `docs/skills/skyrim-mcm/SKILL.md` | SkyUI MCM menu creation |
+| NIF | `docs/skills/skyrim-nif/SKILL.md` | NIF geometry with PyFFI/PyNifly |
+| Save | `docs/skills/skyrim-save/SKILL.md` | ReSaver save analysis workflow |
+
+Use these by referring to them explicitly: *"Follow the inspect-esp skill for
+Data/MyMod.esp"* — the agent reads the SKILL.md and executes the workflow.
+
 ## Contributing
 
 Found a quirk specific to Linux, Amethyst, or immutable systems? Write it into
