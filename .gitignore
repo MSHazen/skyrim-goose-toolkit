@@ -34,3 +34,16 @@ __pycache__/
 # "extract the new zip over your install", so any file the toolkit ships is replaced.
 # A file that is both shipped by us and appended to by you loses your work on update.
 KNOWLEDGEBASE.local.md
+
+# External dependencies downloaded by user (not tracked)
+tools/resaver-cli/ReSaver.jar
+tools/resaver-cli/ReSaver.exe
+tools/resaver-cli/ReSaver.bat
+tools/resaver-cli/lib/
+tools/resaver-cli/src/
+tools/resaver-cli/target/
+tools/resaver-cli/pom.xml
+tools/resaver-cli/*.class
+tools/resaver-cli/LICENSE.TXT
+tools/resaver-cli/README.TXT
+tools/resaver-cli/analysis-overlay/**/*.class
